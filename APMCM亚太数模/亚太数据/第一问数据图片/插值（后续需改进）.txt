@@ -1,0 +1,18 @@
+[newTable,missingIndices] = fillmissing(data,"spline",...
+    "DataVariables",["AverageTemperature","AverageTemperatureUncertainty"]);
+
+% 显示结果
+clf
+plot(newTable.AverageTemperature,"Color",[0 114 189]/255,"LineWidth",1.5,...
+    "DisplayName","清理的数据")
+hold on
+
+% 绘制填充的缺失条目
+plot(find(missingIndices(:,2)),newTable.AverageTemperature(missingIndices(:,2)),".",...
+    "MarkerSize",12,"Color",[217 83 25]/255,"DisplayName","填充的缺失条目")
+title("填充的缺失条目数: " + nnz(missingIndices(:,2)))
+
+hold off
+legend
+ylabel("AverageTemperature")
+clear missingIndices
